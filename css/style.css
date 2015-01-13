@@ -1,0 +1,684 @@
+/*Bren library for CSS*/
+
+@import "styleLib.less"; /*Additional Shapes etc*/
+/*Text Properties*/
+
+@defaultFontSize : 14; /*px*/
+@defaultFontColor : #000;
+
+@defaultFont: 'Cabin', Helvetica, Arial, Sans-Serif;
+@defaultHeaderFont: @defaultFont; /*Change if you want headers to be a different Color*/
+
+@defaultHeaderColor : #f00;
+
+@defaultLinkColor : lighten(@defaultHeaderColor, 25%);
+@defaultHoverColor : @defaultHeaderColor; 
+
+
+/*Site Properties*/
+@siteMaxWidth: 1024px;  /*Must match the BLIB.js */
+@siteMinWidth: 480px;   /*Must match the BLIB.js */
+
+@defaultPadding : 20px;
+
+@sitePrimaryColor1: #000000;
+@sitePrimaryColor2: #009999;
+@sitePrimaryColor3: #ff0000;
+
+
+
+@siteBackgroundColor: #fff;
+@siteDefaultBorderColor: #696969;
+
+
+@siteSectionDefaultBGColor: transparent;
+@siteContentDefaultBGColor: transparent;
+
+
+
+@siteMiniHeaderHeight: 50px;
+@siteFooterHeight: 100px;
+
+@leatherPadding: 5px;
+@siteFooterOffset : @siteFooterHeight + (2 * @leatherPadding);
+
+
+
+
+/*Site CSS*/
+@import "menuCss.less"; /*Must be a .less file to work and read variables*/
+
+
+html, body {height: 100%;}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	font-size: 	@defaultFontSize + 0px;
+	font-family: @defaultFont;
+	position: relative;
+	background-color: @siteBackgroundColor;
+	min-width: 480px;
+	background-image: url('backgrounds/stressed_linen.png');
+	background-repeat: repeat;
+	background-position: 0px 0px;
+}
+
+body *{
+	font-family: @defaultFont;
+	
+}
+
+/*Sticky Footer CSS */
+
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;
+}
+
+#wrap {min-height: 100%;}
+
+#main {
+	padding-bottom: @siteFooterOffset;
+	width: 100%;
+}  /* must be same height as the footer */
+
+#footer {
+	position: relative;
+	margin-top: -1 * @siteFooterOffset; /* negative value of footer height */
+	height: @siteFooterHeight;
+	clear:both;
+} 
+
+/*End Sticky Footer CSS */
+
+
+/*Font and Type Settings*/
+.toEms( @fontSize ){
+	@size : (@fontSize / @defaultFontSize);
+	font-size: @size + 0em;
+	line-height: (1.6 * @size) + 0em;
+	margin: ( .8 * @fontSize) + 0px 0px;	
+}
+
+h1, h2, h3, h4, h5,h6{
+	.clear;
+}
+
+h1{
+	.toEms( @defaultFontSize * 2 );
+	line-height: (1.05 *  ( @defaultFontSize * 2 / @defaultFontSize) ) + 0em;
+	color: @defaultHeaderColor;
+}
+
+h2{
+	.toEms( @defaultFontSize * 1.8 );
+	line-height: (1.1 *  ( @defaultFontSize * 1.8 / @defaultFontSize) ) + 0em;
+	color: lighten(@defaultHeaderColor, 10%);
+}
+
+h3{
+	.toEms( @defaultFontSize * 1.6 );
+	color: lighten(@defaultHeaderColor, 20%);
+}
+
+h4{
+	.toEms( @defaultFontSize * 1.4 );
+	color: lighten(@defaultHeaderColor, 25%);
+}
+
+h5{
+	.toEms( @defaultFontSize * 1.2 );
+	color: lighten(@defaultHeaderColor, 30%);
+}
+
+h6{
+	.toEms( @defaultFontSize * 1.0 );
+	color: lighten(@defaultHeaderColor, 35%);
+}
+
+p, a, span, div, td, li{
+	.toEms( @defaultFontSize );
+	color: @defaultFontColor;
+}
+
+p{
+	width: 100%;
+}
+
+div, td{
+	margin: 0px;
+}
+
+a{
+	color: @defaultLinkColor;
+	text-decoration: none;	
+	cursor: pointer;
+	&:visited{	color: lighten(@defaultHoverColor, 40%); }
+	&:hover{	color: @defaultHoverColor; text-decoration: underline; }
+	img{ border: none; }
+}
+
+/*End font and Type*/
+
+
+/*Site CSS*/
+
+#srollHeaderBar{
+	display: none;
+	position: fixed;
+	top: 0;
+}
+
+#srollHeaderBar .siteContent{
+	
+}
+
+
+#main,
+#wrap,
+.siteSection{
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	
+}
+
+.siteContent{
+	max-width: (@siteMaxWidth - (2 * @defaultPadding ));
+	min-width: (@siteMinWidth - (2 * @defaultPadding ));
+	margin: 0 auto;	
+	position: relative;
+	display: block;
+	padding: @defaultPadding;
+}
+
+#siteAccessibilityContols  .siteContent,
+.leatherWrap .siteContent,
+#header .siteContent{
+	
+	max-width: @siteMaxWidth;
+	min-width: @siteMinWidth;
+	padding: 0px;
+}
+
+.nonContentSiteSection{
+	background-color: transparent;
+}
+
+.desktopDevice .siteSection{  max-width: 1024px; }
+.tablet .siteSection{  max-width: 1024px; }
+.phone .siteSection{ max-width: 480px;  }
+	.phone .siteSection .siteContent { padding: 0px 10px; min-width: 460px; max-width: 460px; width: 460px; overflow-x: hidden;}
+
+.leatherWrap{
+	padding-top: @leatherPadding;
+	padding-bottom: @leatherPadding;
+	background-image: url('backgrounds/black-leather.jpg');
+	width: 100%;
+}
+
+#footer.leatherWrap  > .siteSection,
+.leatherWrap #header{
+	border-top: 1px dashed @siteDefaultBorderColor;
+	border-bottom: 1px dashed @siteDefaultBorderColor;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+
+#header{
+	width: 100%;
+	.clear;	
+	display: block;	
+	overflow: hidden;
+}
+	#logo{ float: left; clear: left; margin-right: 20px; display: block; width: 200px; height: 115px; margin-top: -10px;}
+	 
+	#logo a{
+		/*.neon(50,#f00);*/
+		/*.vintage(50);*/
+		/*.inset(50);*/
+		.fire(50); 
+		font-family: georgia;
+		margin: 0px;
+		text-decoration: none;
+	} 
+	
+	#logo img{
+		
+		width: 200px;
+		margin-top:  25px;
+	}
+
+
+#footer{
+	width: 100%;
+	.clear;	
+	display: block;	
+}
+	
+#footer .siteContent{
+	height: @siteFooterHeight;
+	overflow: hidden;
+}
+	
+	
+.loadingImg{
+	background-image: url('../img/ajax-loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	min-height: 30px;
+	min-width: 30px;
+	display: block;
+}
+.mobileDevice .bigImg{
+	max-width: (@siteMinWidth - 20) !important;
+}
+
+	
+/*Other*/
+.frame( @frameSize: 10px, @frameColor: #fff, @shadowsize: 3px){
+	padding: @frameSize;
+	background-coor: @frameColor;
+	.box-shadow (@x: 3px, @y: 3px, @blur: @shadowsize, @color: #000);
+	border: 1px solid  darken(@frameColor, 20%);
+}
+
+.floatLeftFrame( @frameSize: 10px, @frameColor: #fff, @shadowsize: 3px){
+	float: left;
+	margin: @frameSize;
+	.frame( @frameSize, @frameColor, @shadowsize);
+}
+
+.floatRightFrame( @frameSize: 10px, @frameColor: #fff, @shadowsize: 3px){
+	float: right;
+	margin: @frameSize;
+
+	.frame( @frameSize, @frameColor, @shadowsize);
+}
+
+
+.frameImageLeft > img,
+img.frameImageLeft{
+	.floatLeftFrame;
+}
+
+.frameImageRight > img,
+img.frameImageRight{
+	.floatRightFrame;
+}
+
+.frameImage > img,
+img.frameImage{
+	margin: 10px;
+	.frame();
+}
+
+
+#toolTipText{
+	padding: 20px;
+	background-color: #fff;
+	z-index: 1000;
+	min-width: 50px;
+	max-width: 250px;
+	.box-shadow;
+	display: none;
+}
+/*End Other*/
+
+
+
+/*AccessibilityControlBox*/
+	#siteAccessibilityContols{
+		position: relative;
+		z-index: 10;
+		width: 100%;
+		height: 0px;
+		overflow: visible;
+		z-index: 1001;
+	}
+
+	.phone #siteAccessibilityContols{
+		display: none;
+	}
+	
+	#siteAccessibilityContols > .siteContent{
+		background-color: transparent;
+		border: none;
+		top: 5px;
+	}
+
+	.AccessibilityControlBox{
+		float: left;
+		margin: 5px;
+		height: 20px;
+		width: 20px;
+		display: block;
+		cursor: pointer;
+		line-height: 20px;
+		padding: 5px;
+		border: 1px solid #000;
+		text-align: center;
+	}
+
+	#contrastControl .activecontrast,
+	#fontControl .activefont{
+		border: 1px solid #666;
+	}
+
+	#fontControl,
+	#contrastControl{
+		position: absolute; right: 0px;
+	}
+	
+	#fontControl{
+		right: 150px;
+	}
+	
+	#default_contrast{ background-color: #fff; color: #000;}
+	#low_contrast{ background-color: #ccc; color: #666;}
+	#high_contrast{ background-color: #000; color: #ffff00;}
+
+	#default_font{background-color: #fff;}
+	#large_font{background-color: #fff;}
+	#largest_font{ background-color: #fff;font-weight: bold;}
+
+	.contrast_low {
+		p, a, span, div, td, li{
+			color : #666666;
+		}
+	}
+	
+	.contrast_high{
+		p, a, span, div, td, li{
+			color : #ff0;
+		}
+	}
+
+	body.font_default{
+		font-size: 	@defaultFontSize + 0px;
+	}
+
+	body.font_large{
+		font-size: 	@defaultFontSize + 4px;
+	}
+
+	body.font_largest{
+		font-size: 	@defaultFontSize + 8px;
+	}
+
+	body.contrast_default .siteContent{
+		background-color: @siteContentDefaultBGColor;
+	}
+	
+	body.contrast_low #main{
+		background-color: #CCCCCC;
+	}
+	
+	body.contrast_high #main,
+	body.contrast_high .siteContent{
+		background-color: #000;
+	}
+
+	.contrast_high  #footer .siteContent,
+	.contrast_high #header .siteContent,
+	.contrast_low  #footer .siteContent,
+	.contrast_low #header .siteContent{
+		background-color: transparent;
+	}
+	
+	#main .siteContent{
+		background-color: #fff;
+		background-image: url('backgrounds/gplaypattern.png');
+	}
+	
+	.contrast_low #main> .siteSection > .siteContent{
+		background-color: #CCCCCC;
+		background-image: none;
+		border-left: 1px dashed @siteBackgroundColor;
+		border-right: 1px dashed @siteBackgroundColor;
+	}
+	
+	.contrast_high #main > .siteSection >.siteContent{
+		background-color: #000;
+		border-left: 1px dashed @siteBackgroundColor;
+		border-right: 1px dashed @siteBackgroundColor;
+		background-image: none;
+	}
+	
+/*End Accessibility Controls*/
+
+/*Notification Controls*/
+	#siteNotificationBar{
+		position: relative;
+		z-index: 1000;
+		width: 100%;
+		height: 0px;
+		overflow: visible;
+	}
+
+	#siteNotificationBar > .siteContent{
+		background-color: transparent;
+		border: none;
+		top: 15px;
+		position: absolute;
+		width: 100%;
+	}
+	
+	#siteNotificationBar > .siteContent .notification{
+		min-height: 52px;
+		width: 100%;
+		background-color: #fff;
+		.rounded-corners();
+		top: 4px;
+		margin-bottom: 8px;
+		display: none;
+		position: relative;
+		z-index: 100;
+		.opacity(.95);
+		.box-shadow();
+	}
+	
+	#siteNotificationBar > .siteContent .notification .closeNotification{
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		height: 15px;
+		width: 15px;
+		font-size: 10px;
+		line-height: 15px;
+		text-align: center;
+		cursor: pointer;
+		.rounded-corners(10px);
+		background-color: #f00;
+		color: #fff;
+		font-weight: bold;
+		border: 1px solid #f00;
+		.transitionTime(@t: 0s);
+		display: block;
+	}
+	
+	#siteNotificationBar > .siteContent .notification .closeNotification:hover{
+		color: #000;
+		border: 1px solid #000;
+		
+	}
+	
+	#siteNotificationBar > .siteContent .notification .title{
+		font-weight: bold;
+	}
+	
+	#siteNotificationBar > .siteContent .notification .icon{
+		float: left;
+		height: 32px;
+		width: 32px;
+		border: 1px solid #000;
+		margin: 10px;
+		background-color: #fff;
+	}
+	
+	#siteNotificationBar > .siteContent .noImage .icon{
+		border: none;
+	}
+	
+	#siteNotificationBar > .siteContent .noImage .icon{
+		background-image: url('../img/notifications/touch-icon-iphone.png');
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	#siteNotificationBar > .siteContent .fail,
+	#siteNotificationBar > .siteContent .error{ background-color: #c01a1a;	}
+	
+	#siteNotificationBar > .siteContent .attention,
+	#siteNotificationBar > .siteContent .warning{ background-color: #f2d14f;	}
+	
+	#siteNotificationBar > .siteContent .success{ background-color: #72d32b; }
+	
+
+
+	
+/*End Notification Controls*/
+ 
+/*File Drop Controls*/
+#dropzone{
+	height: 200px;
+	width: 200px;
+	border: 2px dashed #000;
+	.transitionTime();
+	margin-bottom: 20px;
+	display: block;
+}
+
+#dropzone.dragEnter{
+	.rounded-corners(10px);
+	background-color: #eee;
+	border: 6px dashed #000;
+	width: 192px;
+	height: 192px;
+}
+
+#dropzone.dragOver{
+	background-color: rgb(35,247,244);
+}
+
+#dropzone.processing{
+	background-image: url('images/ajax-loader.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#dropzone > p{
+	text-align: center;
+}
+
+.fileContainer{ margin: 10px; float: left;  width: 80px; min-height: 80px; }
+
+.fileContainer.failed *,
+.fileContainer.uploaded *{
+	.opacity(.8);
+	
+}
+
+.fileContainer.uploaded{
+	background-image: url('images/uploaded.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.fileContainer.failed{
+	background-image: url('images/failed.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.fileContainer.uploading{
+	background-image: url('images/ajax-loader.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+.fileContainer .fileImage img{
+	max-width: 64px !important;
+	height: auto !important;
+}
+
+.fileContainer .fileName{
+	.ellipsis();
+}
+
+
+.fileContainer .fileSize{
+	display: none;
+}
+
+.progressBar{
+	width: 100%;
+	overflow: hidden;
+	height: 10px;
+	display: block;
+	clear: both;
+	font-size: 8px;
+}
+	.progressBar .progress{
+		width: 0%;
+		background-color: #0f0;
+		height: 10px;
+		text-align: center;
+		display: block;
+	}
+
+a.photoGalleryPhoto{
+	margin: 10px;
+	padding: 10px;
+	background-color: #fff;
+	display: inline-block;
+	.box-shadow;
+}
+	
+	
+#go{
+	display: none;
+	clear: both;
+	float: left;
+}
+
+#report{
+	clear: both;
+	font-weight: bold;
+}
+
+
+/*Expandy*/
+
+.accordianExpandy {
+	.clear();
+}
+	.accordianTitle{ cursor: pointer; padding-left: 30px; position: relative; }
+		
+		.accordianTitle h2{ margin: 0px; font-size: 15px; line-height: 15px;}
+		
+		.accordianTitle .expandyMarker{ position: absolute; left: 0px; .triangle-right(10px, #f00); .transitionTime(.2s); top: 3px; left: 5px;}
+		
+		.no-csstransitions .accordianTitle.expanded .expandyMarker{ .triangle-down(9px, #f00); }
+		
+		.csstransitions .accordianTitle.expanded .expandyMarker{ .rotate(90deg); }
+		
+	.accordianContent{ padding: 10px; display: none; }
+
+
+
+
+
+
+
+#header{ min-height: 100px; padding-top: 25px; }
+
+
+
+

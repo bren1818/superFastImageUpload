@@ -1,0 +1,33 @@
+#menu ul,
+#menu{ float: left; padding: 0px; margin: 0px; display: block; }
+
+#menu ul li{
+	min-width: 100px;
+	padding: 2px 5px;
+	float: left;
+	color: @sitePrimaryColor1;
+	border: 1px solid @sitePrimaryColor1;
+	background-color: @sitePrimaryColor3;
+	display: block;	
+	margin-right: 3px;
+	.rounded-corners (3px);
+	.textShadow(2px,2px,2px,#0000ff,.4);
+	.opacity(.5);
+	.transitionTime(.2s);
+}
+
+#menu ul li a{
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+	display: inline-block;
+	margin: 0px;
+}
+
+#menu ul li:hover{
+	.opacity(.7);
+}
+#menu ul li:hover a,
+#menu ul li a:hover{
+	color: #fff;
+}
